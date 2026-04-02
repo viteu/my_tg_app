@@ -3,86 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ИСПРАВЛЕНО: Правильная ссылка на скрипт Telegram -->
     <script src="https://telegram.org"></script>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #ffffff;
             font-family: sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Первый экран */
-        .header {
-            height: 100vh; /* Занимает ВЕСЬ экран */
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            /* Чтобы можно было листать */
+            min-height: 150vh; 
+        }
+
+        /* Заголовок сверху */
+        .header-text {
+            color: #808080;
+            font-size: 26px;
+            font-weight: bold;
             text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            padding: 0 20px;
         }
 
-        .header h1 {
-            color: #808080; /* Серый цвет текста */
-            font-size: 28px;
-            padding: 20px;
-        }
-
-        .scroll-hint {
-            color: #aaa;
-            font-size: 14px;
-            margin-top: 20px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        /* Второй экран с квадратом */
+        /* Контейнер для квадрата */
         .container {
-            height: 100vh;
+            width: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
+            margin-top: 20px;
         }
 
         /* Серый квадрат */
         .card {
-            background-color: #808080; /* Серый фон */
-            color: white; /* Белый текст */
+            background-color: #808080;
+            color: white;
             width: 85%;
+            max-width: 400px;
             padding: 30px;
-            border-radius: 25px; /* Закругленные углы */
+            border-radius: 25px;
             text-align: center;
-            
-            /* Начальное состояние (невидимый и внизу) */
+            box-sizing: border-box;
+
+            /* Начальное состояние: невидимый и уменьшен */
             opacity: 0;
-            transform: translateY(100px) scale(0.9);
-            transition: all 1s ease-out; /* Плавность появления */
+            transform: scale(0.8) translateY(30px);
+            transition: all 0.6s ease-out;
         }
 
-        /* Класс, который включит анимацию */
+        /* Состояние, когда квадрат ВИДЕН */
         .card.active {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: scale(1) translateY(0);
         }
 
         .card b {
-            font-size: 22px;
+            font-size: 20px;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Заказывай 3-Д модели только у нас!</h1>
-        <div class="scroll-hint">▼ Листай вниз ▼</div>
+    <div class="header-text">
+        Заказывай 3-Д модели только у нас!
     </div>
 
     <div class="container">
@@ -93,21 +81,32 @@
     </div>
 
     <script>
+        const tg = window.Telegram.WebApp;
         const card = document.getElementById('myCard');
 
-        // Функция слежки за скроллом
-        window.addEventListener('scroll', () => {
-            const speed = 1.3; // Насколько рано появится блок
-            const rect = card.getBoundingClientRect();
-            
-            // Если блок показался внизу экрана
-            if (rect.top < window.innerHeight / speed) {
-                card.classList.add('active');
-            }
-        });
+        // Инициализация Telegram
+        tg.ready();
+        tg.expand();
+        tg.setHeaderColor('#ffffff');
 
-        // Сообщаем Telegram, что приложение готово
-        window.Telegram.WebApp.ready();
+        function handleScroll() {
+            const rect = card.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // Условие: если центр карточки находится в видимой области экрана
+            // Появится, когда войдет в экран, и исчезнет, когда выйдет за границы
+            if (rect.top < windowHeight * 0.9 && rect.bottom > windowHeight * 0.1) {
+                card.classList.add('active');
+            } else {
+                card.classList.remove('active');
+            }
+        }
+
+        // Запускаем проверку при скролле
+        window.addEventListener('scroll', handleScroll);
+        
+        // Запускаем один раз при старте, чтобы проверить положение
+        handleScroll();
     </script>
 </body>
 </html>
