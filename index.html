@@ -15,7 +15,7 @@
 
         /* Первый экран */
         .header {
-            height: 100vh; /* Занимает ВЕСЬ экран */
+            height: 100vh; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -24,9 +24,10 @@
         }
 
         .header h1 {
-            color: #808080; /* Серый цвет текста */
+            color: #808080;
             font-size: 28px;
             padding: 20px;
+            margin: 0;
         }
 
         .scroll-hint {
@@ -42,30 +43,29 @@
             60% {transform: translateY(-5px);}
         }
 
-        /* Второй экран с квадратом */
+        /* Второй экран - уменьшили высоту до 20% от экрана */
         .container {
-            height: 100vh;
+            height: 20vh; 
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Прижали квадрат к верху контейнера */
         }
 
-        /* Серый квадрат */
         .card {
-            background-color: #808080; /* Серый фон */
-            color: white; /* Белый текст */
+            background-color: #808080;
+            color: white;
             width: 85%;
             padding: 30px;
-            border-radius: 25px; /* Закругленные углы */
+            border-radius: 25px;
             text-align: center;
             
-            /* Начальное состояние (невидимый и внизу) */
+            /* Начальное состояние */
             opacity: 0;
-            transform: translateY(100px) scale(0.9);
-            transition: all 1s ease-out; /* Плавность появления */
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.8s ease-out;
         }
 
-        /* Класс, который включит анимацию */
+        /* Класс активации */
         .card.active {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -95,18 +95,15 @@
     <script>
         const card = document.getElementById('myCard');
 
-        // Функция слежки за скроллом
         window.addEventListener('scroll', () => {
-            const speed = 1.3; // Насколько рано появится блок
             const rect = card.getBoundingClientRect();
             
-            // Если блок показался внизу экрана
-            if (rect.top < window.innerHeight / speed) {
+            // Срабатывает, как только верхний край квадрата показался внизу экрана
+            if (rect.top < window.innerHeight * 0.95) {
                 card.classList.add('active');
             }
         });
 
-        // Сообщаем Telegram, что приложение готово
         window.Telegram.WebApp.ready();
     </script>
 </body>
