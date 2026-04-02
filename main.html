@@ -1,4 +1,117 @@
 <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Модели Вити</title>
+    <!-- Подключаем Telegram SDK -->
+    <script src="https://telegram.org"></script>
+    <style>
+        /* Общие настройки страницы */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* Белый фон сайта */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Первый блок с текстом */
+        .header-section {
+            height: 80vh; /* Занимает почти весь экран, чтобы нужно было листать */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .header-text {
+            color: #808080; /* Серый цвет */
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+        }
+
+        /* Контейнер для анимированного блока */
+        .content-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 50px;
+        }
+
+        /* Сам серый квадрат */
+        .info-card {
+            background-color: #808080; /* Серый цвет квадрата */
+            color: #ffffff; /* Белый цвет текста */
+            width: 80%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 20px; /* Закругленные углы */
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+            /* Начальное состояние для анимации: прозрачный и смещен вниз */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out; /* Плавность появления */
+        }
+
+        /* Класс, который добавится при скролле */
+        .info-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .info-card h2 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .info-card p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Первый экран -->
+    <div class="header-section">
+        <div class="header-text">
+            Заказывай 3-Д модели только у нас!
+        </div>
+    </div>
+
+    <!-- Второй экран с квадратом -->
+    <div class="content-section">
+        <div class="info-card" id="card">
+            <h2>Быстрая доставка</h2>
+            <p>Печать идет несколько часов, и быстрая доставка по "Нова Пошта"</p>
+        </div>
+    </div>
+
+    <script>
+        // Инициализация Telegram WebApp
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Развернуть на весь экран
+
+        // Логика появления блока при скролле
+        const card = document.getElementById('card');
+
+        window.addEventListener('scroll', () => {
+            const cardPosition = card.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+
+            if (cardPosition < screenPosition) {
+                card.classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
