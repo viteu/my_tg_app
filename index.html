@@ -13,7 +13,6 @@
             overflow-x: hidden;
         }
 
-        /* Первый экран */
         .header {
             height: 100vh; 
             display: flex;
@@ -43,12 +42,13 @@
             60% {transform: translateY(-5px);}
         }
 
-        /* Второй экран - уменьшили высоту до 20% от экрана */
+        /* Контейнеры для карточек */
         .container {
-            height: 20vh; 
+            min-height: 25vh; /* Увеличил, чтобы текст не слипался */
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Прижали квадрат к верху контейнера */
+            align-items: flex-start;
+            margin-bottom: 20px; /* Отступ между карточками */
         }
 
         .card {
@@ -58,14 +58,11 @@
             padding: 30px;
             border-radius: 25px;
             text-align: center;
-            
-            /* Начальное состояние */
             opacity: 0;
             transform: translateY(50px) scale(0.9);
             transition: all 0.8s ease-out;
         }
 
-        /* Класс активации */
         .card.active {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -85,24 +82,39 @@
         <div class="scroll-hint">▼ Листай вниз ▼</div>
     </div>
 
+    <!-- Первая карточка -->
     <div class="container">
-        <div class="card" id="myCard">
+        <div class="card reveal-card">
             <b>Быстрая доставка:</b>
-            печать идет несколько часов, и быстрая доставка по "нова пошта"
+            печать идет несколько часов, и быстрая доставка по "Нова Пошта"
+        </div>
+    </div>
+
+    <!-- Вторая карточка -->
+    <div class="container">
+        <div class="card reveal-card">
+            <b>Разнообразность моделей:</b>
+            Можно заказать любую модель, игрушку или фигурку на вашу полку!
         </div>
     </div>
 
     <script>
-        const card = document.getElementById('myCard');
+        // Находим все карточки с классом reveal-card
+        const cards = document.querySelectorAll('.reveal-card');
 
-        window.addEventListener('scroll', () => {
-            const rect = card.getBoundingClientRect();
-            
-            // Срабатывает, как только верхний край квадрата показался внизу экрана
-            if (rect.top < window.innerHeight * 0.95) {
-                card.classList.add('active');
-            }
-        });
+        function checkScroll() {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                // Если верх карточки зашел в область видимости (на 95% высоты экрана)
+                if (rect.top < window.innerHeight * 0.95) {
+                    card.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        // Запускаем проверку сразу при загрузке (на случай, если страница уже прокручена)
+        checkScroll();
 
         window.Telegram.WebApp.ready();
     </script>
