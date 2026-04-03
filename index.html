@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Подключаем скрипт Telegram WebApp -->
     <script src="https://telegram.org"></script>
     <style>
         body {
@@ -13,6 +14,7 @@
             overflow-x: hidden;
         }
 
+        /* Первый экран с заголовком */
         .header {
             height: 100vh; 
             display: flex;
@@ -44,13 +46,14 @@
 
         /* Контейнеры для карточек */
         .container {
-            min-height: 25vh; /* Увеличил, чтобы текст не слипался */
+            min-height: 25vh; 
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            margin-bottom: 20px; /* Отступ между карточками */
+            margin-bottom: 30px; /* Отступ между карточками */
         }
 
+        /* Общий стиль для всех серых квадратов */
         .card {
             background-color: #808080;
             color: white;
@@ -58,11 +61,14 @@
             padding: 30px;
             border-radius: 25px;
             text-align: center;
+            
+            /* Начальное состояние (скрыто) */
             opacity: 0;
             transform: translateY(50px) scale(0.9);
             transition: all 0.8s ease-out;
         }
 
+        /* Класс, который добавляется при скролле */
         .card.active {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -73,10 +79,16 @@
             display: block;
             margin-bottom: 15px;
         }
+
+        /* Чтобы после последней карточки было немного места для скролла */
+        .footer-spacer {
+            height: 10vh;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Шапка -->
     <div class="header">
         <h1>Заказывай 3-Д модели только у нас!</h1>
         <div class="scroll-hint">▼ Листай вниз ▼</div>
@@ -98,24 +110,38 @@
         </div>
     </div>
 
+    <!-- Третья карточка (новая) -->
+    <div class="container">
+        <div class="card reveal-card">
+            <b>Твой дизайн — наше воплощение:</b>
+            Присылай свой 3-D файл или просто фото, и мы поможем превратить идею в реальный объект!
+        </div>
+    </div>
+
+    <div class="footer-spacer"></div>
+
     <script>
-        // Находим все карточки с классом reveal-card
+        // Выбираем все элементы с классом reveal-card
         const cards = document.querySelectorAll('.reveal-card');
 
-        function checkScroll() {
+        function handleScroll() {
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
-                // Если верх карточки зашел в область видимости (на 95% высоты экрана)
-                if (rect.top < window.innerHeight * 0.95) {
+                
+                // Активируем карточку, когда её верхний край входит в зону 90% высоты экрана
+                if (rect.top < window.innerHeight * 0.9) {
                     card.classList.add('active');
                 }
             });
         }
 
-        window.addEventListener('scroll', checkScroll);
-        // Запускаем проверку сразу при загрузке (на случай, если страница уже прокручена)
-        checkScroll();
+        // Слушаем событие прокрутки
+        window.addEventListener('scroll', handleScroll);
+        
+        // Запускаем один раз при загрузке (если пользователь обновил страницу уже внизу)
+        handleScroll();
 
+        // Инициализация Telegram WebApp
         window.Telegram.WebApp.ready();
     </script>
 </body>
