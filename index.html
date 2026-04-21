@@ -60,6 +60,7 @@
             opacity: 0;
             transform: translateY(50px) scale(0.9);
             transition: all 0.8s ease-out;
+            box-sizing: border-box;
         }
 
         .card.active {
@@ -71,6 +72,15 @@
             font-size: 22px;
             display: block;
             margin-bottom: 15px;
+        }
+
+        /* Стили ссылок внутри карточки */
+        .card a {
+            color: #fff;
+            display: block;
+            margin-top: 15px;
+            text-decoration: underline;
+            font-size: 18px;
         }
 
         /* Стили для слайдера */
@@ -150,13 +160,21 @@
         </div>
     </div>
 
-    <!-- Новый блок со слайдером -->
     <h2 class="work-title">Примеры наших работ</h2>
     
     <div class="slider-container">
-        <button class="nav-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="nav-btn prev-btn" onclick="changeSlide(-1)">❮</button>
         <img id="slider-image" src="tovar1.png" alt="Пример работы" class="slider-img">
-        <button class="nav-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
+        <button class="nav-btn next-btn" onclick="changeSlide(1)">❯</button>
+    </div>
+
+    <!-- НОВЫЙ БЛОК С ССЫЛКАМИ -->
+    <div class="container">
+        <div class="card reveal-card">
+            <b>Ссылки на наши товары:</b>
+            <a href="https://www.olx.ua/d/uk/921160150/?bs=olx_pro_listing" target="_blank">Тарелка для фисташек.</a>
+            <a href="https://www.olx.ua/d/uk/919948334/?bs=olx_pro_listing" target="_blank">Игрушка осьминог антистресс.</a>
+        </div>
     </div>
 
     <div class="footer-spacer"></div>
@@ -176,20 +194,17 @@
         window.addEventListener('scroll', handleScroll);
         handleScroll();
 
-        // Логика слайдера
         let currentImgIndex = 1;
         const totalImages = 4;
         const imgElement = document.getElementById('slider-image');
 
         function changeSlide(direction) {
             currentImgIndex += direction;
-
             if (currentImgIndex > totalImages) {
                 currentImgIndex = 1;
             } else if (currentImgIndex < 1) {
                 currentImgIndex = totalImages;
             }
-
             imgElement.src = `tovar${currentImgIndex}.png`;
         }
 
