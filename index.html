@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,7 +74,6 @@
             margin-bottom: 15px;
         }
 
-        /* Стили ссылок внутри карточки */
         .card a {
             color: #fff;
             display: block;
@@ -83,7 +82,6 @@
             font-size: 18px;
         }
 
-        /* Стили для слайдера */
         .work-title {
             text-align: center;
             color: #808080;
@@ -130,6 +128,19 @@
         .footer-spacer {
             height: 10vh;
         }
+
+        .tg-contact {
+            text-align: center; 
+            color: #000; 
+            font-size: 18px; 
+            padding: 20px; 
+            font-weight: bold;
+        }
+
+        .tg-contact a {
+            color: #000; 
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -142,7 +153,7 @@
     <div class="container">
         <div class="card reveal-card">
             <b>Швидка доставка:</b>
-            Друк йде кілька годин, швидка доставка."
+            Друк йде кілька годин, швидка доставка.
         </div>
     </div>
 
@@ -168,25 +179,20 @@
         <button class="nav-btn next-btn" onclick="changeSlide(1)">❯</button>
     </div>
 
-    <!-- НОВЫЙ БЛОК С ССЫЛКАМИ -->
     <div class="container">
         <div class="card reveal-card">
             <b>Посилання на наші товари:</b>
-            <a href="https://www.olx.ua/d/uk/921160150/?bs=olx_pro_listing" target="_blank">Тарелка для фисташек.</a>
-            <a href="https://www.olx.ua/d/uk/919948334/?bs=olx_pro_listing" target="_blank">Игрушка осьминог антистресс.</a>
+            <a href="https://olx.ua" target="_blank">Посудина для фісташок.</a>
+            <a href="https://olx.ua" target="_blank">Іграшка антистресс восьминіг.</a>
         </div>
     </div>
-    <div class="footer-spacer"></div>
-        <!-- Блок с Telegram контактом -->
-    <div style="text-align: center; color: #000; font-size: 18px; padding: 20px; font-weight: bold;">
+
+    <div class="tg-contact">
         Наш телеграм, якщо хочете надрукувати свою ідею -> 
-        <a href="https://t.me" style="color: #000; text-decoration: none;">@ViktorSamorukov</a>
+        <a href="https://t.me">@ViktorSamorukov</a>
     </div>
 
     <div class="footer-spacer"></div>
-
-    
- 
 
     <script>
         const cards = document.querySelectorAll('.reveal-card');
