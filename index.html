@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://telegram.org"></script>
+
     <style>
         body {
             margin: 0;
@@ -14,7 +15,7 @@
         }
 
         .header {
-            height: 100vh; 
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -37,13 +38,19 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         .container {
-            min-height: 25vh; 
+            min-height: 25vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -72,14 +79,6 @@
             font-size: 22px;
             display: block;
             margin-bottom: 15px;
-        }
-
-        .card a {
-            color: #fff;
-            display: block;
-            margin-top: 15px;
-            text-decoration: underline;
-            font-size: 18px;
         }
 
         .work-title {
@@ -122,73 +121,60 @@
             z-index: 10;
         }
 
-        .prev-btn { left: 5px; }
-        .next-btn { right: 5px; }
+        .prev-btn {
+            left: 5px;
+        }
+
+        .next-btn {
+            right: 5px;
+        }
 
         .footer-spacer {
             height: 10vh;
-        }
-
-        .tg-contact {
-            text-align: center; 
-            color: #000; 
-            font-size: 18px; 
-            padding: 20px; 
-            font-weight: bold;
-        }
-
-        .tg-contact a {
-            color: #000; 
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>Купуй 3-Д моделі тільки в нас!!</h1>
-        <div class="scroll-hint">▼ Гортай до низу ▼</div>
+        <h1>Buy High-Quality 3D Printed Models From Us!</h1>
+        <div class="scroll-hint">▼ Scroll Down ▼</div>
     </div>
 
     <div class="container">
         <div class="card reveal-card">
-            <b>Швидка доставка:</b>
-            Друк йде кілька годин, швидка доставка.
+            <b>Fast Delivery</b>
+            Production takes only a few hours, and your order is shipped quickly.
         </div>
     </div>
 
     <div class="container">
         <div class="card reveal-card">
-            <b>Різноманітність моделей:</b>
-            Можна замовити будь-яку модель, іграшку чи фігурку на вашу полицю!
+            <b>Huge Variety of Models</b>
+            Order any model, toy, figurine, or decoration for your collection.
         </div>
     </div>
 
     <div class="container">
         <div class="card reveal-card">
-            <b>Твій дизайн – наше втілення:</b>
-            Надсилай свій 3-D файл або просто фото, і ми допоможемо перетворити ідею на реальний об'єкт!
+            <b>Your Idea — Our Creation</b>
+            Send us a 3D file or even just a photo, and we'll turn your idea into a real object.
         </div>
     </div>
 
-    <h2 class="work-title">Приклади наших робіт:</h2>
-    
+    <h2 class="work-title">Examples of Our Work</h2>
+
     <div class="slider-container">
         <button class="nav-btn prev-btn" onclick="changeSlide(-1)">❮</button>
-        <img id="slider-image" src="tovar1.png" alt="Приклад роботи." class="slider-img">
+
+        <img
+            id="slider-image"
+            src="tovar1.png"
+            alt="Example of our work"
+            class="slider-img"
+        >
+
         <button class="nav-btn next-btn" onclick="changeSlide(1)">❯</button>
-    </div>
-
-    <div class="container">
-        <div class="card reveal-card">
-            <b>Посилання на наші товари:</b>
-            <a href="https://www.olx.ua/d/uk/921160150/?bs=olx_pro_listing" target="_blank">Посудина для фісташок.</a>
-            <a href="https://www.olx.ua/d/uk/919948334/?bs=olx_pro_listing" target="_blank">Іграшка антистресс восьминіг.</a>
-        </div>
-    </div>
-
-    <div class="tg-contact">
-         Наш телеграм, якщо хочете надрукувати свою ідею -> @ViktorSamorukov
     </div>
 
     <div class="footer-spacer"></div>
@@ -199,6 +185,7 @@
         function handleScroll() {
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
+
                 if (rect.top < window.innerHeight * 0.9) {
                     card.classList.add('active');
                 }
@@ -214,15 +201,18 @@
 
         function changeSlide(direction) {
             currentImgIndex += direction;
+
             if (currentImgIndex > totalImages) {
                 currentImgIndex = 1;
             } else if (currentImgIndex < 1) {
                 currentImgIndex = totalImages;
             }
+
             imgElement.src = `tovar${currentImgIndex}.png`;
         }
 
         window.Telegram.WebApp.ready();
     </script>
+
 </body>
 </html>
